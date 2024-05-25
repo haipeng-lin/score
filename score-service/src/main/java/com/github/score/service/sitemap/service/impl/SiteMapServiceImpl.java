@@ -62,26 +62,6 @@ public class SiteMapServiceImpl implements SiteMapService {
         return vo;
     }
 
-    /**
-     * 加锁初始化，更推荐的是采用分布式锁
-     */
-    private synchronized void initSiteMap() {
-        long lastId = 0L;
-        RedisClient.del(SITE_MAP_CACHE_KEY);
-        while (true) {
-            List<SimpleArticleDTO> list = articleDao.getBaseMapper().listArticlesOrderById(lastId, SCAN_SIZE);
-            // 刷新文章的统计信息
-            list.forEach(s -> countService.refreshArticleStatisticInfo(s.getId()));
-
-            // 刷新站点地图信息
-            Map<String, Long> map = list.stream().collect(Collectors.toMap(s -> String.valueOf(s.getId()), s -> s.getCreateTime().getTime(), (a, b) -> a));
-            RedisClient.hMSet(SITE_MAP_CACHE_KEY, map);
-            if (list.size() < SCAN_SIZE) {
-                break;
-            }
-            lastId = list.get(list.size() - 1).getId();
-        }
-    }
 
 
     private SiteMapVo initBasicSite() {
