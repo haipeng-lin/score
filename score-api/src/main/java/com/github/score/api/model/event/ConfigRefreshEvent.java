@@ -14,15 +14,16 @@ import org.springframework.context.ApplicationEvent;
  */
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode(callSuper = true)
-public class ConfigRefreshEvent extends ApplicationEvent {
+ @ToString
+ @EqualsAndHashCode(callSuper = true)
+ public class ConfigRefreshEvent extends ApplicationEvent {
     private String key;
     private String val;
 
 
     public ConfigRefreshEvent(Object source, String key, String value) {
         super(source);
+        // 调用父类的构造函数
         this.key = key;
         this.val = value;
     }

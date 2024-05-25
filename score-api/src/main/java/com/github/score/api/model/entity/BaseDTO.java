@@ -9,7 +9,7 @@ import java.util.Date;
  * @Author haipeng_lin
  * @Mailbox haipeng_lin@163.com
  * @Date 2024/5/24 17:49
- * @Description 数据传输对象
+ * @Description 基础数据传输对象
  */
 
 @Data

@@ -1,5 +1,6 @@
 package com.github.score.api.model.context;
 
+import com.github.score.api.model.vo.user.dto.BaseUserInfoDTO;
 import lombok.Data;
 
 import java.security.Principal;
@@ -28,6 +29,9 @@ public class ReqInfoContext {
         return contexts.get();
     }
 
+    /**
+     * 域名、访问路径、客户端ip、referer、post
+     */
     @Data
     public static class ReqInfo implements Principal {
         /**
@@ -73,12 +77,14 @@ public class ReqInfoContext {
          * 用户信息
          */
         private BaseUserInfoDTO user;
+
         /**
          * 消息数量
          */
         private Integer msgNum;
 
-        private Seo seo;
+        //
+        //private Seo seo;
 
         private String deviceId;
 
